@@ -63,10 +63,13 @@ const AssignmentDetails = () => {
       await axios.post(`${process.env.REACT_APP_RESPONDER_API_HOST}/assignments/accept-request/${assignment.assignmentId}`, {}, {
         headers: { Authorization: `Bearer ${accessToken}` },
       });
+      //introducing delay
+      await new Promise((resolve)=> setTimeout(resolve,2500))
       // Refresh the assignment details
       const response = await axios.get(`${process.env.REACT_APP_RESPONDER_API_HOST}/assignments/assignment-by-id/${assignment.assignmentId}`, {
         headers: { Authorization: `Bearer ${accessToken}` },
       });
+      
       setAssignment(response.data);
     } catch (error) {
       console.error('Error accepting assignment:', error);

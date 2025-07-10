@@ -89,8 +89,20 @@ const AssignmentDashBoard = () => {
             <tr key={assignment.id}>
               <td>{index + 1}</td>
               <td><Link to={`/assignments/${assignment.assignmentId}`}>{assignment.assignmentId}</Link></td>
-              <td>{new Date(assignment.startTime).toLocaleString()}</td>
-              <td>{new Date(assignment.endTime).toLocaleString()}</td>
+              <td>{assignment.startTime
+    ? new Date(assignment.startTime.slice(0, 23)).toLocaleDateString('en-GB', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      })
+    : 'N/A'} </td>
+              <td>{assignment.startTime
+    ? new Date(assignment.endTime.slice(0, 23)).toLocaleDateString('en-GB', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      })
+    : 'N/A'}</td>
               <td>{getStatusBadge(assignment.assignStatus)}</td>
               <td>{assignment.assignmentNotes}</td>
               <td>{getServiceTypeBadge(assignment.serviceType)}</td>

@@ -62,8 +62,11 @@ const AssignmentDashBoard = () => {
         return <span className="badge bg-success">🟩 Accepted, Assigned to you</span>;
       case 'CANCELLED':
         return <span className="badge bg-danger">❌ Cancelled</span>;
+      case 'REVOKED':
+        return <span className="badge bg-danger">❌ Revoked due to inactivity</span>;
       default:
         return <span className="badge bg-secondary">Unknown</span>;
+    
     }
   };
 
@@ -89,18 +92,26 @@ const AssignmentDashBoard = () => {
             <tr key={assignment.id}>
               <td>{index + 1}</td>
               <td><Link to={`/assignments/${assignment.assignmentId}`}>{assignment.assignmentId}</Link></td>
-              <td>{assignment.startTime
-    ? new Date(assignment.startTime.slice(0, 23)).toLocaleDateString('en-GB', {
+              <td>
+  {assignment.startTime
+    ? new Date(assignment.startTime.slice(0, 23)).toLocaleString('en-GB', {
         day: 'numeric',
         month: 'long',
-        year: 'numeric'
+        year: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true // for AM/PM style
       })
-    : 'N/A'} </td>
-              <td>{assignment.startTime
-    ? new Date(assignment.endTime.slice(0, 23)).toLocaleDateString('en-GB', {
+    : 'N/A'}
+</td>
+              <td>{assignment.endTime
+    ? new Date(assignment.endTime.slice(0, 23)).toLocaleString('en-GB', {
         day: 'numeric',
         month: 'long',
-        year: 'numeric'
+        year: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true // for AM/PM style
       })
     : 'N/A'}</td>
               <td>{getStatusBadge(assignment.assignStatus)}</td>
